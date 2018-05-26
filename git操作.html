@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h3>配置用户名和email</h3>
+  <p>$ git config --global user.name "Your Name"</p>
+  <p>$ git config --global user.email "email@example.com"</p>
+  
+  
+  <h3>选择一个目录，创建版本库</h3>
+  <p>$ git init</p>
+  <p>Initialized empty Git repository in /Users/michael/learngit/.git/</p>
+
+  <h3>创建文件index.txt编辑点内容，在添加到仓库</h3>
+  <p>$ git add .</p>
+
+  <h4>把文件提交到仓库，使用git commit -m 后面加上说明</h4>
+  <p>$ git commit -m "my frist file"</p>
+
+  <h3>假设我们要改动index.txt文件， 改动后要再次提交，提交之前来看看仓库当前的状态，使用 git status</h3>
+  <p>$ git status</p>
+  <p>On branch master<br>
+    Changes not staged for commit:<br>
+      (use "git add <file>..." to update what will be committed)<br>
+      (use "git checkout -- <file>..." to discard changes in working directory)<br>
+    
+        modified:   index.txt<br>
+    
+    no changes added to commit (use "git add" and/or "git commit -a")</p>
+  <p>上面命令告诉我们，index.txt文件被修改了，但是还没有准备提交的修改</p>
+  <h3>要查看具体修改了什么内容， 使用 git diff</h3>  
+  <p>$ git diff</p>
+  <h3>知道了修改后，把修改后的文件重新添加到仓库</h3>
+  <p>$ git add index.txt</p>
+  <h3>在提交到仓库之前我们再看看仓库当前的状态</h3>
+  <p>
+    $ git status <br>
+    On branch master <br>
+    Changes to be committed: <br>
+      (use "git reset HEAD <file>..." to unstage) <br>
+
+            modified:   index.txt 
+  </p>
+  <h3>上面告诉我们，将要被提交的修改包括index.txt，下一步，就可以放心地提交了：</h3>
+  <p>$ git commit -m "frist xiugai" <br>
+      [master 4461b09] frist xiugai <br>
+       1 file changed, 1 insertion(+)</p>
+  <h3>提交后再看看仓库的状态</h3>
+  <p>$ git status <br>
+      On branch master <br>
+      nothing to commit, working tree clean</p>
+
+  <p> Git告诉我们当前没有需要提交的修改，而且，工作目录是干净（working tree clean）的。</p>
+  
+  <h3>现在我们已经提交了两个版本了，如果以后提交多个版本肯定记不住，所以用 git log 查看</h3>
+  <p>$ git log <br>
+      commit 4461b093f72578485c77e5f36f3fe582854eeba2 <br>
+      Author: syf3121 <312191136@qq.com> <br>
+      Date:   Sat May 26 10:07:20 2018 +0800 <br>
+      
+          frist xiugai <br>
+      
+      commit e226e1d023961b93dacfb4f0b054991964e26c90 <br>
+      Author: syf3121 <312191136@qq.com> <br>
+      Date:   Sat May 26 09:59:26 2018 +0800 <br>
+      
+          frist file       
+  </p>
+  <h3>如果要退回那个上个版本或者某个版本，要先知道当前版本，git中HEAD表示当前版本 使用 git reset</h3>
+  <p>$ git reset --hard HEAD^</p>
+  <h3>如果要在回到刚刚的版本，可以在上面git log 里找到那个版本的commit id(只需写前几位就可以)</h3>
+  <p>$ git reset --hard 4461b</p>
+  <h3>如果不小心把git 命令窗口关闭了，可以使用 git reflog</h3>
+  <p>git reflog <br>
+      4461b09 HEAD@{3}: commit: frist xiugai<br>
+      e226e1d HEAD@{4}: commit (initial): frist file
+      
+  </p>
+  <p>也可以看到每一次的commit id</p>
+
+  <h3>到这，基本常用的命令已经学会，现在我们学习如何与远程仓库关联</h3>
+  <h3>一般我们都会申请一个github账号，这样就可以免费获取一个远程仓库</h3>
+  <h3>本地git仓库和github仓库之间是通过ssh加密的所以要设置</h3>
+  <h3>首先要在自己电脑生生 SSH Key ，在命令行输入 ,注意写成自己的邮箱,然后一路回车就ok</h3>
+  <p>$ ssh-keygen -t rsa -C "312191136@qq.com"</p>
+  <h3>顺利的话可以再用户目录底下 找到 .ssh的目录，里面有id_rsa和id_rsa.pub两个文件，
+    这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。</h3>
+  <h3>然后就可以登录github把ssh密匙添加上，如下图，点击New SSH key添加自己的 id_rsa.pub密匙</h3>
+  <div><img src="images/1.png" alt=""></div>
+  <div><img src="images/2.png" alt=""></div>
+  <h3>到这一步基本就大功告成了，然后去github新建一个仓库，然后和本地仓库关联。这里就不说怎么在github创建仓库了，自行百度</h3>
+    
+</body>
+</html>
